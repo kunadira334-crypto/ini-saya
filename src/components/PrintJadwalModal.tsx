@@ -316,7 +316,7 @@ export const PrintJadwalModal: React.FC<PrintJadwalModalProps> = ({
                     Sumberduren, {todayIndo}
                   </p>
                   <p className="text-slate-800 font-semibold mt-0.5">
-                    Kepala Madrasah Aliyah Mambaul Ulum,
+                    Kepala {profile.nama},
                   </p>
                   <div className="h-16 flex items-center justify-center">
                     <span className="text-slate-400 italic text-[11px]">

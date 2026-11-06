@@ -1,6 +1,6 @@
 export const KBC_APPS_SCRIPT_CODE_GS = `/**
  * ==============================================================================
- * SISTEM INFORMASI SUPERVISI MADRASAH ALIYAH MAMBAUL ULUM
+ * SISTEM INFORMASI SUPERVISI MI MAMBAUL ULUM
  * Desa Sumberduren, Kecamatan Krucil, Kabupaten Probolinggo
  * KURIKULUM BERBASIS CINTA (KBC) & PEMBELAJARAN MENDALAM (DEEP LEARNING)
  * ==============================================================================
@@ -93,7 +93,7 @@ function setupMadrasahSpreadsheetDatabase() {
     formatHeaderRow(sheetJadwal, headersJadwal, '#1e3a8a');
   }
 
-  return 'Setup Database Sheet Madrasah Aliyah Mambaul Ulum Berhasil Selesai!';
+  return 'Setup Database Sheet MI Mambaul Ulum Berhasil Selesai!';
 }
 
 function getOrCreateSheet(ss, name) {
@@ -128,7 +128,7 @@ function doGet(e) {
     if (action === 'ping') {
       return jsonOutput({
         success: true,
-        message: 'Koneksi ke Database MA Mambaul Ulum Aktif!',
+        message: 'Koneksi ke Database MI Mambaul Ulum Aktif!',
         spreadsheetName: ss.getName(),
         spreadsheetId: ss.getId(),
         timestamp: new Date().toISOString()

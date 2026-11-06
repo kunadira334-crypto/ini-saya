@@ -10,9 +10,9 @@ import {
 } from '../types';
 
 export const defaultMadrasahProfile: MadrasahProfile = {
-  nama: 'Madrasah Aliyah Mambaul Ulum',
-  nsm: '131235140028',
-  npsn: '20581452',
+  nama: 'MI MAMBAUL ULUM',
+  nsm: '111235140028',
+  npsn: '60721452',
   kepalaMadrasah: 'Muzakki, S.Pd.',
   nipKepala: '19780612 200501 1 003',
   tahun: '2026',
@@ -23,7 +23,7 @@ export const defaultMadrasahProfile: MadrasahProfile = {
   kabupaten: 'Kabupaten Probolinggo',
   provinsi: 'Jawa Timur',
   telepon: '(0335) 841290',
-  email: 'ma.mambaululum.krucil@kemenag.go.id',
+  email: 'mi.mambaululum.krucil@kemenag.go.id',
   filosofi: 'Kurikulum Berbasis Cinta (KBC) & Pembelajaran Mendalam (Deep Learning)'
 };
 

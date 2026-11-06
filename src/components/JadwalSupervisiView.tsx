@@ -552,7 +552,7 @@ export const JadwalSupervisiView: React.FC<JadwalSupervisiViewProps> = ({
                   {editingId ? 'Ubah Jadwal Supervisi' : 'Buat Jadwal Supervisi Baru'}
                 </h3>
                 <p className="text-xs text-slate-500">
-                  MA Mambaul Ulum • Desa Sumberduren, Kec. Krucil, Kab. Probolinggo
+                  {profile.nama} • {profile.alamat}
                 </p>
               </div>
               <button onClick={() => setIsModalOpen(false)} className="text-slate-400 hover:text-slate-700">

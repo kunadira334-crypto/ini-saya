@@ -304,7 +304,7 @@ export const SheetsIntegrationModal: React.FC<SheetsIntegrationModalProps> = ({
                 <div className="w-6 h-6 rounded-full bg-emerald-600 text-white font-bold flex items-center justify-center flex-shrink-0">1</div>
                 <div>
                   <h5 className="font-bold text-slate-900">Buka Google Spreadsheet Baru</h5>
-                  <p className="text-slate-600 mt-0.5">Buka <a href="https://sheets.new" target="_blank" rel="noreferrer" className="text-emerald-700 underline font-semibold">sheets.new</a> dan beri nama "Database Supervisi MA Mambaul Ulum".</p>
+                  <p className="text-slate-600 mt-0.5">Buka <a href="https://sheets.new" target="_blank" rel="noreferrer" className="text-emerald-700 underline font-semibold">sheets.new</a> dan beri nama "Database Supervisi MI Mambaul Ulum".</p>
                 </div>
               </div>
 

@@ -12,7 +12,8 @@ import {
   CheckCircle2,
   AlertCircle,
   FileText,
-  Calendar
+  Calendar,
+  School
 } from 'lucide-react';
 import { 
   MasterGuru, 
@@ -116,6 +117,15 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
             >
               <Clock className="w-4 h-4 text-amber-400" />
               <span>Pantau Tindak Lanjut ({pendingFollowUps + inProgressFollowUps})</span>
+            </button>
+
+            <button
+              onClick={() => onNavigate('data_sekolah')}
+              className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-emerald-950/70 hover:bg-emerald-900 text-emerald-200 font-bold text-xs border border-emerald-400/40 transition shadow-xs"
+              title="Atur data sekolah dan ganti Kepala Sekolah"
+            >
+              <School className="w-4 h-4 text-emerald-400" />
+              <span>Data Sekolah & Kepala</span>
             </button>
           </div>
         </div>

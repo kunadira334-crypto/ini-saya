@@ -12,7 +12,8 @@ import {
   BookOpen, 
   Award,
   ChevronRight,
-  Sparkles
+  Sparkles,
+  School
 } from 'lucide-react';
 import { MadrasahProfile, GoogleSheetsConfig } from '../types';
 
@@ -24,6 +25,7 @@ export type ActivePage =
   | 'tindak_lanjut' 
   | 'rekap_laporan' 
   | 'master_data' 
+  | 'data_sekolah'
   | 'integrasi_sheet';
 
 interface SidebarProps {
@@ -80,6 +82,11 @@ export const Sidebar: React.FC<SidebarProps> = ({
       icon: <Database className="w-4 h-4" />
     },
     {
+      id: 'data_sekolah',
+      label: 'Data Sekolah & Kepala',
+      icon: <School className="w-4 h-4" />
+    },
+    {
       id: 'integrasi_sheet',
       label: 'Database Spreadsheet',
       icon: <FileSpreadsheet className="w-4 h-4" />,
@@ -100,8 +107,8 @@ export const Sidebar: React.FC<SidebarProps> = ({
             <h1 className="text-sm font-bold tracking-tight text-white truncate">
               SIM-SUPERVISI
             </h1>
-            <p className="text-[11px] text-emerald-300 truncate font-medium">
-              MA Mambaul Ulum
+            <p className="text-[11px] text-emerald-300 truncate font-semibold" title={profile.nama}>
+              {profile.nama}
             </p>
           </div>
         </div>
@@ -124,7 +131,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
             <button
               key={item.id}
               onClick={() => onSelectPage(item.id)}
-              className={`w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-xs font-semibold transition-all group ${
+              className={`w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-xs font-semibold transition-all group cursor-pointer ${
                 isActive
                   ? 'bg-gradient-to-r from-emerald-600 to-teal-700 text-white shadow-md shadow-emerald-900/40 font-bold'
                   : 'text-slate-300 hover:text-white hover:bg-emerald-900/30'
@@ -149,17 +156,30 @@ export const Sidebar: React.FC<SidebarProps> = ({
         })}
       </nav>
 
-      {/* Madrasah Info Footer */}
-      <div className="p-3.5 m-3 rounded-xl bg-emerald-900/30 border border-emerald-800/40 text-[11px] text-emerald-200 space-y-1">
-        <div className="text-[10px] uppercase tracking-wider text-emerald-400 font-bold flex items-center gap-1">
-          <BookOpen className="w-3 h-3" />
-          <span>Kepala Madrasah</span>
+      {/* Madrasah Info Footer (Clickable to edit school & principal) */}
+      <div 
+        onClick={() => onSelectPage('data_sekolah')}
+        className={`p-3.5 m-3 rounded-xl border text-[11px] space-y-1 transition-all cursor-pointer group ${
+          activePage === 'data_sekolah'
+            ? 'bg-emerald-800/60 border-emerald-500 text-white shadow-md'
+            : 'bg-emerald-900/30 hover:bg-emerald-900/60 border-emerald-800/40 text-emerald-200'
+        }`}
+        title="Klik untuk membuka Pengaturan Data Sekolah & Ganti Kepala Sekolah"
+      >
+        <div className="text-[10px] uppercase tracking-wider text-emerald-400 font-bold flex items-center justify-between">
+          <div className="flex items-center gap-1">
+            <BookOpen className="w-3 h-3 text-emerald-300" />
+            <span>Kepala Madrasah</span>
+          </div>
+          <span className="text-[9px] text-emerald-300 bg-emerald-950/60 px-1.5 py-0.5 rounded border border-emerald-700/60 group-hover:bg-emerald-500 group-hover:text-emerald-950 transition">
+            Ganti / Edit
+          </span>
         </div>
         <div className="font-bold text-white text-xs truncate">
           {profile.kepalaMadrasah}
         </div>
-        <div className="text-[10px] text-slate-400">
-          Tahun {profile.tahun} • Semester Ganjil
+        <div className="text-[10px] text-slate-300 truncate">
+          {profile.alamat}
         </div>
       </div>
     </aside>

@@ -17,6 +17,7 @@ import {
 } from './types';
 import { 
   fetchMadrasahProfile,
+  updateMadrasahProfile,
   fetchMasterGuru,
   saveMasterGuru,
   deleteMasterGuru,
@@ -47,6 +48,7 @@ import { SupervisiTendikView } from './components/SupervisiTendikView';
 import { TindakLanjutView } from './components/TindakLanjutView';
 import { RekapLaporanView } from './components/RekapLaporanView';
 import { MasterDataView } from './components/MasterDataView';
+import { DataSekolahView } from './components/DataSekolahView';
 import { SheetsIntegrationModal } from './components/SheetsIntegrationModal';
 import { PrintReportModal } from './components/PrintReportModal';
 import { PrintJadwalModal } from './components/PrintJadwalModal';
@@ -243,6 +245,18 @@ export default function App() {
     setIsPrintModalOpen(true);
   };
 
+  const handleSaveProfile = async (newProfile: MadrasahProfile) => {
+    const saved = await updateMadrasahProfile(newProfile);
+    setProfile(saved);
+    // Also update supervisor info on existing schedules so reports and prints reflect the new principal immediately
+    setJadwalList(prev => prev.map(j => ({
+      ...j,
+      supervisor_nama: newProfile.kepalaMadrasah,
+      supervisor_nip: newProfile.nipKepala
+    })));
+    showToast(`Data sekolah ${newProfile.nama} & Kepala Sekolah berhasil diperbarui!`, 'success');
+  };
+
   const handleSaveSheetsConfig = (cfg: GoogleSheetsConfig) => {
     setSheetsConfig(cfg);
     saveSheetsConfig(cfg);
@@ -294,17 +308,35 @@ export default function App() {
         {/* Top Navbar */}
         <header className="bg-white border-b border-slate-200 px-4 sm:px-6 py-3 flex items-center justify-between gap-4 shadow-2xs z-20">
           <div className="flex items-center gap-2 sm:gap-3 flex-wrap">
-            <span className="text-xs sm:text-sm font-extrabold text-slate-900">
-              {profile.nama}
-            </span>
-            <div className="flex items-center gap-1 text-[11px] text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200 font-medium">
+            <button
+              onClick={() => setActivePage('data_sekolah')}
+              className="text-left group cursor-pointer"
+              title="Klik untuk mengubah Data Sekolah & Kepala Madrasah"
+            >
+              <span className="text-xs sm:text-sm font-extrabold text-slate-900 group-hover:text-emerald-700 transition flex items-center gap-1.5">
+                <span>{profile.nama}</span>
+                <span className="text-[10px] text-emerald-800 bg-emerald-50 px-1.5 py-0.5 rounded border border-emerald-200 opacity-90 group-hover:bg-emerald-600 group-hover:text-white transition font-bold">
+                  Edit
+                </span>
+              </span>
+            </button>
+            <button 
+              onClick={() => setActivePage('data_sekolah')}
+              className="flex items-center gap-1 text-[11px] text-emerald-800 bg-emerald-50 hover:bg-emerald-100 px-2 py-0.5 rounded-md border border-emerald-200 font-medium cursor-pointer transition text-left"
+              title="Klik untuk mengubah alamat sekolah"
+            >
               <MapPin className="w-3 h-3 text-emerald-600 flex-shrink-0" />
-              <span>{profile.alamat}</span>
-            </div>
+              <span className="truncate max-w-xs">{profile.alamat}</span>
+            </button>
             <span className="text-slate-300 hidden md:inline">•</span>
-            <span className="text-xs text-slate-600 hidden md:inline">
-              Kepala: <strong>{profile.kepalaMadrasah}</strong>
-            </span>
+            <button
+              onClick={() => setActivePage('data_sekolah')}
+              className="text-xs text-slate-600 hidden md:inline text-left hover:text-slate-900 transition cursor-pointer"
+              title="Klik untuk mengganti Kepala Sekolah"
+            >
+              Kepala: <strong className="text-slate-900">{profile.kepalaMadrasah}</strong>
+              <span className="ml-1 text-[10.5px] text-emerald-700 font-bold underline hover:text-emerald-800">(Ganti)</span>
+            </button>
           </div>
 
           <div className="flex items-center gap-2.5 flex-shrink-0">
@@ -408,6 +440,14 @@ export default function App() {
               onDeleteGuru={handleDeleteGuru}
               onSaveTendik={handleSaveTendik}
               onDeleteTendik={handleDeleteTendik}
+            />
+          )}
+
+          {activePage === 'data_sekolah' && (
+            <DataSekolahView
+              profile={profile}
+              onSaveProfile={handleSaveProfile}
+              onNavigateToJadwal={() => setActivePage('jadwal_supervisi')}
             />
           )}
         </main>

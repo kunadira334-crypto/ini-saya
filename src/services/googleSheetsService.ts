@@ -61,17 +61,30 @@ export const fetchMadrasahProfile = async (): Promise<MadrasahProfile> => {
   if (data) {
     try {
       const parsed = JSON.parse(data);
+      let needsUpdate = false;
+      let updated = { ...parsed };
+
+      // Update to MI MAMBAUL ULUM if currently storing previous Madrasah Aliyah name
+      if (!parsed.nama || parsed.nama === 'Madrasah Aliyah Mambaul Ulum' || parsed.nama.includes('Madrasah Aliyah')) {
+        updated.nama = 'MI MAMBAUL ULUM';
+        if (!updated.email || updated.email.includes('ma.mambaululum')) {
+          updated.email = 'mi.mambaululum.krucil@kemenag.go.id';
+        }
+        needsUpdate = true;
+      }
+
       // Ensure address is updated to exact: Desa Sumberduren, Kecamatan Krucil, Kabupaten Probolinggo
       const targetAlamat = 'Desa Sumberduren, Kecamatan Krucil, Kabupaten Probolinggo';
       if (parsed.alamat !== targetAlamat) {
-        const updated = {
-          ...parsed,
-          alamat: targetAlamat,
-          kelurahan: 'Desa Sumberduren',
-          kecamatan: 'Krucil',
-          kabupaten: 'Kabupaten Probolinggo',
-          provinsi: 'Jawa Timur'
-        };
+        updated.alamat = targetAlamat;
+        updated.kelurahan = 'Desa Sumberduren';
+        updated.kecamatan = 'Krucil';
+        updated.kabupaten = 'Kabupaten Probolinggo';
+        updated.provinsi = 'Jawa Timur';
+        needsUpdate = true;
+      }
+
+      if (needsUpdate) {
         localStorage.setItem(STORAGE_KEYS.PROFILE, JSON.stringify(updated));
         return updated;
       }
